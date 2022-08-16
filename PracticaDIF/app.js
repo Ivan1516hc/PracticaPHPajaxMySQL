@@ -82,7 +82,6 @@ $(function() {
                       </a>
                       </td>
                       <td>${servicio.descripcion}</td>
-                      <td>${servicio.activo}</td>
                       <td>
                         <button class="servicio-delete btn btn-danger">
                          Delete 
