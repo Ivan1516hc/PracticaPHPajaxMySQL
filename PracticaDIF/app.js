@@ -64,10 +64,14 @@ $(function() {
     function fetchServicios() {
         $.ajax({
             url: 'servicios-list.php',
+            //Metodo para obtener informacion
             type: 'GET',
             success: function(response) {
                 const servicios = JSON.parse(response);
+                //Este es el objeto que recibira la forma en que se iran guardando los datos
+                //para despues solo mandarlos al html
                 let template = '';
+                //forEach para ir guardando todos los registros
                 servicios.forEach(servicio => {
                     template += `
                       <tr servicioId="${servicio.id}">
@@ -104,5 +108,16 @@ $(function() {
             edit = true;
         });
         e.preventDefault();
+    });
+
+    // Delete un servicio
+    $(document).on('click', '.servicio-delete', (e) => {
+        if (confirm('¿Relmente quieres borrar el servicio?')) {
+            const element = $(this)[0].activeElement.parentElement.parentElement;
+            const id = $(element).attr('servicioId');
+            $.post('servicios-delete.php', { id }, (response) => {
+                fetchServicios();
+            });
+        }
     });
 });
